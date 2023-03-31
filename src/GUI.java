@@ -6,7 +6,6 @@ import java.io.*;
 public class GUI {
     private JButton sökButton;
     private JPanel panel1;
-    private JButton button4;
     private JTextArea textArea1;
     private JButton nyttButton;
     private JButton öppnaButton;
@@ -27,23 +26,34 @@ public class GUI {
                 String nextline = null;
                 try {
                     nextline = in.readLine();
-                    while (nextline != null){
-                        textArea1.append(nextline+"\n");
+                    while (nextline != null) {
+                        textArea1.append(nextline + "\n");
                         nextline = in.readLine();
                     }
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
 
-                }
+            }
 
+
+        });
+        sparaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                save();
             }
         });
-
+    }
 public void save(){
     String filename ="text.txt";
-    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename)));
-            out.println("Hello World")
+    PrintWriter out = null;
+    try {
+        out = new PrintWriter(new BufferedWriter(new FileWriter(filename)));
+    } catch (IOException e) {
+        throw new RuntimeException(e);
+    }
+    out.println(textArea1.getText());
             out.flush();
             out.close();
 }
