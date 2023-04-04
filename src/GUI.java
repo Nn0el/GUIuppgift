@@ -44,6 +44,39 @@ public class GUI {
                 save();
             }
         });
+        öppnaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String filename = "text.txt";
+                BufferedReader in = null;
+                try {
+                    in = new BufferedReader(new FileReader(filename));
+                } catch (FileNotFoundException ex) {
+                    textArea1.setText("");
+                    return;
+                }
+                String nextLine = null;
+                try {
+                    nextLine = in.readLine();
+                    while (nextLine != null) {
+                        textArea1.append(nextLine +"\n");
+                        nextLine = in.readLine();
+                    }
+                } catch (IOException ex) {
+                    textArea1.setText("");
+                }
+            }
+        });
+        sökButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String allText = textArea1.getText();
+                String wordToFind = JOptionPane.showInputDialog("Vad vill du söka?");
+                if (allText.contains(wordToFind)) {
+                    System.out.println("hittad!");
+                }
+            }
+        });
     }
 public void save(){
     String filename ="text.txt";
